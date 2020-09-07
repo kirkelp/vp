@@ -14,6 +14,14 @@
 		$partofday = "õppimise aeg";
 		
 	}
+//jälgime semestri kulgu
+$semesterstart = new DateTime("2020-08-31");
+$semesterend = new DateTime("2020-12-13");
+$semesterduration = $semesterstart->diff($semesterend);
+$today = new DateTime("now");
+$fromsemesterstart = $semesterstart->diff($today);
+//saime aka erinevuse objektina, seda niisama näidata ei saa
+$fromsemesterstartdays = $fromsemesterstart->format("%r%a");
 
 ?>
 
@@ -35,7 +43,7 @@
   <h1>Pealkiri2</h1>
   <h2>Alapealkiri</h2>
   <p>See on lause on loodud enda arvutiga väljaspool kooli sisevõrku</p>
-  <p>Lehe avamise aeg: <?php echo $fulltimenow; ?>
+  <p>Lehe avamise aeg: <?php echo $fulltimenow .", semestri algusest on möödunud " .$fromsemesterstartdays ." päeva"; ?>
   <?php echo "Parajasti on " .$partofday ." ." ; ?> </p>
 </body>
 </html>

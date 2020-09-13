@@ -14,6 +14,15 @@
 		$partofday = "õppimise aeg";
 		
 	}
+	if($hournow >=19 and  $hournow <20){
+		$partofday = "trenni aeg";
+		
+	}
+	if($hournow >=21 and  $hournow <22){
+		$partofday = "õhtuste portseduuride aeg";
+		
+	}
+	
 //jälgime semestri kulgu
 $semesterstart = new DateTime("2020-08-31");
 $semesterend = new DateTime("2020-12-13");
@@ -22,6 +31,8 @@ $today = new DateTime("now");
 $fromsemesterstart = $semesterstart->diff($today);
 //saime aka erinevuse objektina, seda niisama näidata ei saa
 $fromsemesterstartdays = $fromsemesterstart->format("%r%a");
+$semester = $semesterduration->format("%r%a");
+$tehtud = ($semester/100)*$fromsemesterstartdays;
 
 ?>
 
@@ -43,7 +54,9 @@ $fromsemesterstartdays = $fromsemesterstart->format("%r%a");
   <h1>Pealkiri2</h1>
   <h2>Alapealkiri</h2>
   <p>See on lause on loodud enda arvutiga väljaspool kooli sisevõrku</p>
-  <p>Lehe avamise aeg: <?php echo $fulltimenow .", semestri algusest on möödunud " .$fromsemesterstartdays ." päeva"; ?>
-  <?php echo "Parajasti on " .$partofday ." ." ; ?> </p>
+  <p>Lehe avamise aeg: <?php echo $fulltimenow .", semestri algusest on möödunud " .$fromsemesterstartdays ." päeva"; ?></p>
+  <p>Parajasti on <?php echo $partofday ." ." ; ?> </p>
+  <p>kogu semsestri päevade arv:<?php echo $semester; ?></p>
+  <p>Semestri õppetööst on tehtud:<?php echo $tehtud; ?> %</p>
 </body>
 </html>

@@ -3,6 +3,8 @@
 	$fulltimenow = date("d.m.Y H:i:s");
 	$hournow = date("H");
 	$partofday = "lihtsalt aeg";
+	
+	
 	if($hournow < 6){
 		$partofday = "uneaeg";
 	}
@@ -22,18 +24,36 @@
 		$partofday = "õhtuste portseduuride aeg";
 		
 	}
-	
-//jälgime semestri kulgu
-$semesterstart = new DateTime("2020-08-31");
-$semesterend = new DateTime("2020-12-13");
-$semesterduration = $semesterstart->diff($semesterend);
-$today = new DateTime("now");
-$fromsemesterstart = $semesterstart->diff($today);
-//saime aka erinevuse objektina, seda niisama näidata ei saa
-$fromsemesterstartdays = $fromsemesterstart->format("%r%a");
-$semester = $semesterduration->format("%r%a");
-$tehtud = ($semester/100)*$fromsemesterstartdays;
-
+ //jälgime semestri kulgu
+  $semesterstart = new DateTime("2020-8-31");
+  $semesterend = new DateTime("2020-12-13");
+  $semesterduration = $semesterstart->diff($semesterend);
+  $semesterdurationdays = $semesterduration->format("%r%a");
+  $today = new DateTime("now");
+  $fromsemesterstart = $semesterstart->diff($today);
+  //saime aja erinevuse objektina, seda niisama näidata ei saa
+  $fromsemesterstartdays = $fromsemesterstart->format("%r%a");
+  $semesterpercentage = 0;
+  
+  
+  
+  $semesterinfo = "Semester kulgeb vastavalt akadeemilisele kalendrile.";
+  if($semesterstart > $today){
+	  $semesterinfo = "Semester pole veel peale hakanud!";
+  }
+  if($fromsemesterstartdays === 0){
+	  $semesterinfo = "Semester algab täna!";
+  }
+  if($fromsemesterstartdays > 0 and $fromsemesterstartdays < $semesterdurationdays){
+	  $semesterpercentage = ($fromsemesterstartdays / $semesterdurationdays) * 100;
+	  $semesterinfo = "Semester on täies hoos, kestab juba " .$fromsemesterstartdays ." päeva, läbitud on " .$semesterpercentage ."%.";
+  }
+  if($fromsemesterstartdays == $semesterdurationdays){
+	  $semesterinfo = "Semester lõppeb täna!";
+  }
+  if($fromsemesterstartdays > $semesterdurationdays){
+	  $semesterinfo = "Semester on läbi saanud!";
+  }
 ?>
 
 
@@ -56,7 +76,6 @@ $tehtud = ($semester/100)*$fromsemesterstartdays;
   <p>See on lause on loodud enda arvutiga väljaspool kooli sisevõrku</p>
   <p>Lehe avamise aeg: <?php echo $fulltimenow .", semestri algusest on möödunud " .$fromsemesterstartdays ." päeva"; ?></p>
   <p>Parajasti on <?php echo $partofday ." ." ; ?> </p>
-  <p>kogu semsestri päevade arv:<?php echo $semester; ?></p>
-  <p>Semestri õppetööst on tehtud:<?php echo $tehtud; ?> %</p>
+  <p><?php echo $semesterinfo; ?></p>
 </body>
 </html>

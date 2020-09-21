@@ -118,7 +118,10 @@ require("header.php");
   <hr>
   
   <a href="sisesta.php">Mõtte lisamine</a>
-  <a href="idee.php">Mõtte kuvamine</a>
+  <a href="idee.php">Mõtte kuvamine</a> 
+  <a href="listfilms.php">Filmide kohta info</a>
+   <a href="addfilms.php">Filmide lisamine</a>
+  
   
 </body>
 </html>

@@ -1,23 +1,24 @@
 <?php
 //loeme andmebaasi login info muutujad
 	require("../../../config.php");
-	require("fnc_film.php");
 	//kui klikiti nuppu, siis kontrollime ja salves	  
-	$inputerror = "";
-	$firstnameerror = "";
-	$lastnameerror = "";
-	$gendererror = "";
-	$emailerror = "";
-	$passworderror = "";
-	$passwordsecondaryerror = "";
-	$passwordlengtherror = "";
-	$passwordcompareerror = "";
 	$firstname = "";
 	$lastname = "";
 	$gender = "";
 	$email = "";
+	
+	$firstnameerror = "";
+	$lastnameerror = "";
+	$gendererror = "";
+	$emailerror = "";
+	
+	$passworderror = "";
+	$passwordsecondaryerror = "";
+	$passwordlengtherror = "";
+	$passwordcompareerror = "";
+
 //kui klikit submit siis ...
-if(isset($_POST["usersubmit"])){
+if(isset($_POST["kasutajasubmit"])){
 	if(empty($_POST["firstnameinput"])){
 		$firstnameerror .= "Sisesta eesnimi ";
 	}	
@@ -64,40 +65,35 @@ if(isset($_POST["usersubmit"])){
 require("header.php");
  ?>
 <html> 
+<img src="../img/vp_banner.png" alt="Veebiprogrammeerimise kursuse bänner">
 <hr>
-<ul>
-<li><a href="home.php">Avaleht</a></li>
-</ul>
-<hr> 
+<a href="home.php">Avaleht</a>
+
 
 <form method= "POST">
-	<label for="firstnameinput"> Eesnimi</label>
+	<label for="firstnameinput">Eesnimi:</label>
 	<input type="text" name="firstnameinput" id="firstnameinput" placeholder="Eesnimi" value="<?php echo $firstname; ?>"><span><?php echo $firstnameerror; ?></span>
 	<br>
-	<label for="lastnameinput"> Perekonnanimi</label>
+	<label for="lastnameinput">Perekonnanimi:</label>
 	<input type="text" name="lastnameinput" id="lastnameinput" placeholder="Perekonnanimi" value="<?php echo $lastname; ?>" ><span><?php echo $lastnameerror; ?></span>
 	<br>
-	<p>Sugu:</p>
-	<input type="radio" name="genderinput" id="gendermale" value="1"><label for="gendermale">Mees</label><?php if($gender == "1"){echo " checked";}?>
+	<label>Sugu:</label>
+	<input type="radio" name="genderinput" id="gendermale" value="1"><label for="gendermale">Mees</label><?php if($gender == "1"){echo "valitud";}?>
 	<input type="radio" name="genderinput" id="genderfemale" value="2"><label for="genderfemale">Naine</label><?php if($gender == "2"){echo " checked";}?><span><?php echo $gendererror; ?></span>
 	<br>
-	<label for="emailinput"> Kasutajanimi meiliaadressina</label>
-	<input type="text" name="emailinput" id="emailinput" placeholder="email@domain.com" value="<?php echo $email; ?>"><span><?php echo $emailerror; ?></span>
+	<label for="emailinput">Email:</label>
+	<input type="text" name="emailinput" id="emailinput" placeholder="email@tlu.ee" value="<?php echo $email; ?>"><span><?php echo $emailerror; ?></span>
 	<br>
 	<label for="passwordinput">Sisesta parool</label>
-	<input type="password" name="passwordinput" id="passwordinput" placeholder="Password"><span><?php echo $passworderror, $passwordcompareerror, $passwordlengtherror ; ?></span>
+	<input type="password" name="passwordinput" id="passwordinput" placeholder="Parool"><span><?php echo $passworderror, $passwordcompareerror, $passwordlengtherror ; ?></span>
 	<br>
-	<label for="passwordsecondaryinput"> Korda parooli</label>
-	<input type="password" name="passwordsecondaryinput" id="passwordsecondaryinput" placeholder="Password"><span><?php echo $passwordsecondaryerror ; ?></span>
+	<label for="passwordsecondaryinput">Korda parooli</label>
+	<input type="password" name="passwordsecondaryinput" id="passwordsecondaryinput" placeholder="Parool"><span><?php echo $passwordsecondaryerror ; ?></span>
 	<br>
-	
-	
-	<input type="submit" name="usersubmit" value="Salvesta kasutajakonto">
+	<input type="submit" name="kasutajasubmit" value="Salvesta">
 
 </form>
 <br>
-<?php
-
 </body>
 	</html>
 	

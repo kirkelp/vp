@@ -5,6 +5,7 @@
 	//kui klikiti nuppu, siis kontrollime ja salvestame
 	$inputerror ="";
 	if(isset($_POST["filmsubmit"])){
+		//$title=$_POST[$titleinput];
 		if(empty($_POST["titleinput"]) or empty($_POST["genreinput"]) or empty($_POST["studioinput"])or empty($_POST["directorinput"])){
 			$inputerror .="Osa vajalikku infot on sisestamata!";
 		}

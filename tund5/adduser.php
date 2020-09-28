@@ -1,5 +1,5 @@
 <?php
-	require("../../../config.php");
+  require("../../../../config_vp2020.php");
   //require("fnc_user.php");
   //kui klikiti nuppu, siis kontrollime ja salvestame
   $monthnameset = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
@@ -72,6 +72,7 @@
 	  
   }
   
+
 
   require("header.php");
 ?>

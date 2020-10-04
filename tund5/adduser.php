@@ -126,7 +126,7 @@
   <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
     
   <ul>
-    <li><a href="home.php">Avalehele</a></li>
+    <li><a href="page.php">Avalehele</a></li>
   </ul>
   <hr>
   <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

@@ -164,6 +164,6 @@ $piccount = count($allpicfiles);
 		<br>
 		<br>
 		<input type="submit" name="login" value="Logi sisse"><span><?php echo "&nbsp; &nbsp; &nbsp;" .$notice; ?></span>
-  
+  </form>
 </body>
 </html>

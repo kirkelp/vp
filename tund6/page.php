@@ -1,5 +1,6 @@
 <?php
   //loeme andmebaasi login ifo muutujad
+  session_start();
   require("../../../config.php");
   require("fnc_common.php");
   require("fnc_user.php");

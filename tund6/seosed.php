@@ -19,7 +19,6 @@ $movieli= null;
 $genreli=null;
 $notice= null;
 
-function readmovies(){
 	$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
 	//valmistame ette sql käsu
 	$stmt = $conn->prepare("SELECT movie_id, title FROM movie");
@@ -33,9 +32,8 @@ function readmovies(){
 		$notice = $stmt->error();
 	}
 	$stmt->close();
-	}
+
 	
-function readgenres(){
 	$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
 	//valmistame ette sql käsu
 	$stmt = $conn->prepare("SELECT genre_id, genre_name FROM genre");
@@ -49,7 +47,7 @@ function readgenres(){
 		$notice = $stmt->error();
 	}
 	$stmt->close();
-	}
+
 
 	if(isset($_POST["moviegenresubmit"])) {
 		if(isset($_POST["movieinput"]) and isset($_POST["genreinput"])) {

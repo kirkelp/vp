@@ -29,7 +29,9 @@ if(isset($_GET["logout"])){
 	<li><a href="userprofile.php">Oma profiili haldamine</a></li>
 	<li><a href="listfilmpersons.php">Filmitegelased</a></li>
 	<li><a href="seosed.php">Seoste lisamine</a></li>
+	<li><a href="addandmed.php">Filmi andmete lisamine</a></li>
 	<li><a href="addfilmrelations.php">Seoste lisamine2</a></li>
+	<li><a href="movieinfo.php">Filmide info</a></li>
   </ul>
   
 </body>

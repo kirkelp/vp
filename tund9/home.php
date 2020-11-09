@@ -11,7 +11,16 @@ if(isset($_GET["logout"])){
 	header("Location: page.php");
 	exit();
 }
-	
+
+//testin klassi
+//require("classes/Generic_class.php");
+//loome uue instantsi
+//$myfirstinstance = new Generic();
+//echo "salajane number on  " .$myfirstinstance->secretnumber;	
+//echo "avalik number on  " .$myfirstinstance->availablenumber;	
+//$myfirstinstance->showValues();
+//unset($myfirstinstance);
+
 
   require("header.php");
 ?>

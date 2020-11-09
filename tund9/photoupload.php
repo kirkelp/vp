@@ -15,6 +15,7 @@ if(isset($_GET["logout"])){
 require("../../../config.php");
 require("fnc_photo.php");
 require("fnc_common.php");
+require("classes/Photoupload_class.php");
   
   $notice = "";
   $filetype = "";
@@ -23,6 +24,7 @@ require("fnc_common.php");
   $origphotodir = "../photoupload_orig/";
   $normalphotodir = "../photoupload_normal/";
   $thumbphotodir = "../photoupload_thumbnail/";
+  $watermarkimage="../img/vp_logo_w100_overlay.png";
   $maxphotowidth = 600;
   $maxphotoheight = 400;
   $thumbsize = 100;
@@ -37,6 +39,7 @@ require("fnc_common.php");
 	$privacy = intval($_POST["privinput"]);
 	//kas on üldse pilt
 	if(isset($_FILES["photoinput"]["tmp_name"])){
+		
 		$check = getimagesize($_FILES["photoinput"]["tmp_name"]);
 		//var_dump($check);
 		if($check !== false){
@@ -52,6 +55,7 @@ require("fnc_common.php");
 		} else {
 			$error = "Valitud fail ei ole pilt!";
 		}
+
 		
 		//pildi suurus
 		if($_FILES["photoinput"]["size"] > 1048576){
@@ -68,33 +72,42 @@ require("fnc_common.php");
 		}
 		
 		if(empty($error)){
-			//teeme pildi väiksemaks
-			//teeme pildiobjekti - pikslikogumi
-			if($filetype == "jpg"){
-				$mytempimage = imagecreatefromjpeg($_FILES["photoinput"]["tmp_name"]);
-			}
-			if($filetype == "png"){
-				$mytempimage = imagecreatefrompng($_FILES["photoinput"]["tmp_name"]);
-			}
-			if($filetype == "gif"){
-				$mytempimage = imagecreatefromgif($_FILES["photoinput"]["tmp_name"]);
-			}
-			//muudame pildi suurust
-			$mynewimage = resizePhoto($mytempimage, $maxphotowidth, $maxphotoheight, true);
 			
-			$result = savePhotoFile($mynewimage, $filetype, $normalphotodir .$filename);
+			//võtan kasutusele klass
+			$myphoto = new Photoupload($_FILES["photoinput"],$filetype);
+			
+			
+			
+			//if($filetype == "jpg"){
+			//	$mytempimage = imagecreatefromjpeg($_FILES["photoinput"]["tmp_name"]);
+			//}
+			//if($filetype == "png"){
+			//	$mytempimage = imagecreatefrompng($_FILES["photoinput"]["tmp_name"]);
+			//}
+			//if($filetype == "gif"){
+			//	$mytempimage = imagecreatefromgif($_FILES["photoinput"]["tmp_name"]);
+			//}
+			
+			//muudame pildi suurust
+			$myphoto->resizePhoto($maxphotowidth, $maxphotoheight);
+			//lisan vesimärgi
+			$myphoto->addWatermark($watermarkimage);
+			//salvastan vähendatud photo
+			//$result = savePhotoFile($mynewimage, $filetype, $normalphotodir .$filename);
+			$result = $myphoto->savePhotoFile($normalphotodir .$filename);
 			if($result == 1){
 				$notice .= "Vähendatud pildi salvestamine õnnestus!";
 			} else {
 				$error .= "Vähendatud pildi salvestamisel tekkis tõrge!";
 			}
 			
-			imagedestroy($mynewimage);
+			//imagedestroy($mynewimage);
 			
 			//teeme pisipildi
-			$mynewimage = resizePhoto($mytempimage, $thumbsize, $thumbsize);
+			$myphoto->resizePhoto($thumbsize, $thumbsize);
+			//$mynewimage = resizePhoto($mytempimage, $thumbsize, $thumbsize);
 			
-			$result = savePhotoFile($mynewimage, $filetype, $thumbphotodir .$filename);
+			$result = $myphoto->savePhotoFile($thumbphotodir .$filename);
 			if($result == 1){
 				$notice .= "Pisipildi salvestamine õnnestus!";
 			} else {
@@ -119,7 +132,8 @@ require("fnc_common.php");
 			} else {
 				$error .= " Tekkinud vigade tõttu pildi andmeid ei salvestatud!";
 			}
-		imagedestroy($mytempimage);
+			unset($myphoto);
+		//imagedestroy($mytempimage);
 		}
 			
 	  }

@@ -1,39 +1,19 @@
 <?php
-//session_start();
-  
-  //SESSIOON
-  require("classes/Session.class.php");
-  //sessioon, mis katkeb, kui brauser suletakse ja on kättesaadav ainult meie domeenis, meie lehele
-  SessionManager::sessionStart("vp", 0, "/~kirkpau/", "greeny.cs.tlu.ee");
-  
-  //kui pole sisseloginud
-  if(!isset($_SESSION["userid"])){
-	  //jõugu sisselogimise lehele
-	  header("Location: page.php");
-  }
-  //väljalogimine
-  if(isset($_GET["logout"])){
-	  session_destroy();
-	   header("Location: page.php");
-	   exit();
-  }
-  
+	require("usesession.php");
+	require("../../../config.php");
+	require("fnc_photo.php");
+	require("fnc_common.php");
+	require("classes/Photoupload_class.php");
 
-
-require("../../../config.php");
-require("fnc_photo.php");
-require("fnc_common.php");
-require("classes/Photoupload_class.php");
-
-$tolink='<script src="javascript/checkfilesize.js" defer></>' ."/n";
-  
-  $notice = "";
-  $filetype = "";
-  $error = null;
-  $filenameprefix = "vp_";
-  $origphotodir = "../photoupload_orig/";
-  $normalphotodir = "../photoupload_normal/";
-  $thumbphotodir = "../photoupload_thumbnail/";
+$tolink = '<script src="javascript/checkfilesize.js" defer></script>' ."\n";
+    
+  $inputerror = "";
+  $notice = null;
+  $filetype = null;
+  $filesizelimit = 2097152;//1048576;
+  $photouploaddir_orig = "../photoupload_orig/";
+  $photouploaddir_normal = "../photoupload_normal/";
+  $photouploaddir_thumb = "../photoupload_thumb/";
   $watermark = "../img/vp_logo_w100_overlay.png";
   $filenameprefix = "vp_";
   $filename = null;
@@ -171,6 +151,10 @@ $tolink='<script src="javascript/checkfilesize.js" defer></>' ."/n";
 	echo $notice;
   ?>
   </p>
+  
+</body>
+</html>
+
   
 </body>
 </html>

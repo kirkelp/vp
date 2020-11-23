@@ -1,30 +1,18 @@
 <?php
-  //SESSIOON
-  require("classes/Session.class.php");
-  //sessioon, mis katkeb, kui brauser suletakse ja on kättesaadav ainult meie domeenis, meie lehele
-  SessionManager::sessionStart("vp", 0, "/~kirkpau/", "greeny.cs.tlu.ee");
-  
-  //kui pole sisseloginud
-  if(!isset($_SESSION["userid"])){
-	  header("Location: page.php");
-  }
-  //väljalogimine
-  if(isset($_GET["logout"])){
-	  session_destroy();
-	   header("Location: page.php");
-	   exit();
-  }
-  
+
+  require("usesession.php");
   require("../../../config.php");
   require("fnc_photo.php");
-  
+   
   $tolink = '<link rel="stylesheet" type="text/css" href="style/gallery.css">' ."\n";
+  $tolink .= '<link rel="stylesheet" type="text/css" href="style/modal.css">' ."\n";
+  $tolink .= '<script src="javascript/modal.js" defer></script>' ."\n";
   
-  $notice = "";
-  $origphotodir = "../photoupload_orig/";
-  $normalphotodir = "../photoupload_normal/";
-  $thumbphotodir = "../photoupload_thumbnail/";
-   $gallerypagelimit = 3;
+  $notice = null;
+  $photouploaddir_orig = "../photoupload_orig/";
+  $photouploaddir_normal = "../photoupload_normal/";
+  $photouploaddir_thumb = "../photoupload_thumb/";
+  $gallerypagelimit = 3;
   $page = 1;
   $photocount = countPublicPhotos(2);
   if(!isset($_GET["page"]) or $_GET["page"] < 1){
@@ -58,7 +46,20 @@
 	<div class="modalhorizontal">
 		<div class="modalvertical">
 			<p id="modalcaption"></p>
-			<img src="../img/empty.png" alt="galeriipilt">
+			<img id="modalimg" src="../img/empty.png" alt="galeriipilt">
+			
+			<br>
+			<div id="rating" class="modalRating">
+				<label><input id="rate1" name="rating" type="radio" value="1">1</label>
+				<label><input id="rate2" name="rating" type="radio" value="2">2</label>
+				<label><input id="rate3" name="rating" type="radio" value="3">3</label>
+				<label><input id="rate4" name="rating" type="radio" value="4">4</label>
+				<label><input id="rate5" name="rating" type="radio" value="5">5</label>
+				<button id="storeRating">Salvesta hinnang!</button>
+				<br>
+				<p id="avgRating"></p>
+			</div>
+			
 		</div>
 	</div>
   </div>
